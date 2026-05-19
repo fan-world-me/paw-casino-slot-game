@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PawCasino — Dog House Slot Machine</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🐾 PawCasino</div>
+    <div class="online-pill">
+      <div class="dot-pulse"></div>
+      <span id="onlineCount">—</span> онлайн
+    </div>
+    <div class="balance-bar">
+      <span>🐾</span>
+      <div>
+        <div class="bal-label">PAWCOINS</div>
+        <div class="bal-num" id="balNum">99 221</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-dogs">🐶🐕🦴</div>
+    <div class="hero-title">🎰 PawCasino</div>
+    <div class="hero-sub">Играй на PawCoins — выдуманная валюта, настоящий азарт!</div>
+    <div class="hero-badges">
+      <div class="badge gb">🏆 WIN UP TO 6,750× BET</div>
+      <div class="badge">✅ Честная игра</div>
+      <div class="badge">🔒 Полностью офлайн</div>
+    </div>
+  </div>
+
+  <!-- BONUS OVERLAY -->
+  <div id="bonusOverlay">
+    <div class="bonus-modal">
+      <div class="bm-icon" id="bmIcon">🎰</div>
+      <div class="bm-title">БОНУС!</div>
+      <div class="bm-sub">Выпал множитель</div>
+      <div class="bm-mult" id="bmMult">×5</div>
+      <div class="bm-win" id="bmWin">+50 000 🐾</div>
+      <button class="bm-btn" onclick="closeBonusModal()">🎉 Забрать!</button>
+    </div>
+  </div>
+
+  <!-- PAGE LAYOUT -->
+  <div class="page">
+
+    <!-- LEFT / MAIN COL -->
+    <div class="col-main">
+
+      <!-- BONUS STRIP -->
+      <div class="bstrip" style="margin-bottom:4px;">
+        <div class="bstrip-icon">🎁</div>
+        <div class="bstrip-text">
+          <h3>Бонус новичка!</h3>
+          <p>Получи 50 000 PawCoins бесплатно</p>
+        </div>
+        <button class="bstrip-btn" onclick="claimBonus()">Забрать!</button>
+      </div>
+
+      <!-- SLOT MACHINE -->
+      <div class="sec">🎰 The Dog House — Слот</div>
+      <div class="slot-box">
+        <div class="slot-topbar">🦴 WIN UP TO <span>6 750 × BET</span> 🦴</div>
+
+        <div class="reels-wrap" id="reelsWrap"></div>
+
+        <div class="slot-info">
+          <div class="sinfo-item">
+            <div class="sinfo-val" id="siSpins">0</div>Кручений
+          </div>
+          <div class="sinfo-item">
+            <div class="sinfo-val" id="siWins">0</div>Побед
+          </div>
+          <div class="sinfo-item">
+            <div class="sinfo-val" id="siTotal">0</div>Всего выиграно
+          </div>
+        </div>
+
+        <div class="win-line" id="winLine">—</div>
+
+        <div class="slot-ctrl">
+          <div class="bet-row">
+            <button class="btn-s" onclick="chgBet(-50)">−</button>
+            <div class="bet-lbl">СТАВКА</div>
+            <div class="bet-disp" id="betDisp">🐾 100</div>
+            <button class="btn-s" onclick="chgBet(50)">+</button>
+            <button class="btn-s" onclick="chgBet(850)" style="font-size:.7rem">MAX</button>
+          </div>
+          <button class="btn-spin" id="spinBtn" onclick="doSpin()">🎰 КРУТИТЬ</button>
+          <div class="rtp-info">RTP: 94.5%<br><span style="color:#4caf50;font-weight:700;">🟢 Онлайн</span></div>
+        </div>
+      </div>
+
+      <!-- GAMES -->
+      <div class="sec">🐾 Все игры</div>
+      <div class="games-grid" id="gamesGrid"></div>
+
+      <!-- SHOP -->
+      <div class="sec">🛒 Пополнить PawCoins</div>
+      <div
+        style="background:#0f2e0a33;border:1.5px solid #3d8030;border-radius:10px;padding:9px 14px;font-size:.75rem;color:#66bb6a;margin-bottom:12px;">
+        ℹ️ PawCoins — игровая валюта. Нет реальной ценности и не обмениваются на деньги.
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+
+    </div><!-- /col-main -->
+
+    <!-- RIGHT / SIDE COL -->
+    <div class="col-side">
+
+      <!-- LEADERBOARD -->
+      <div class="sec" style="margin-top:0;">🏆 Топ игроков</div>
+      <div class="lb-box" id="lbBox"></div>
+
+      <!-- LIVE CHAT -->
+      <div class="sec">💬 Чат</div>
+      <div class="chat-box">
+        <div class="chat-header">
+          <div class="dot-pulse"></div> Живой чат
+        </div>
+        <div class="chat-msgs" id="chatMsgs"></div>
+        <div class="chat-input-row">
+          <input class="chat-input" id="chatInput" placeholder="Написать..." maxlength="80"
+            onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="chat-send" onclick="sendMsg()">➤</button>
+        </div>
+      </div>
+
+    </div><!-- /col-side -->
+
+  </div><!-- /page -->
+
+  <footer>
+    <b>PawCasino</b> — развлекательная платформа на виртуальной валюте.<br>
+    PawCoins не имеют реальной стоимости. Полностью офлайн. 🐾 Играй ответственно.
+  </footer>
+
+  <div id="notif"></div>
+
+  <script src="js/script.js"></script>
+</body>
+
+</html>
